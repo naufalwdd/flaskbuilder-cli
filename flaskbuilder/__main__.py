@@ -1,8 +1,9 @@
 import os
 import shutil
 import click
+import importlib.resources
 
-TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), '..', 'templates')
+TEMPLATE_DIR = importlib.resources.files('flaskbuilder').joinpath('templates')
 
 @click.command()
 @click.argument('project_name')
