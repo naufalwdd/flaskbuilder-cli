@@ -1,2 +1,1 @@
-recursive-include flaskbuilder/templates *
-recursive-include flaskbuilder/static *
+recursive-include templates *
