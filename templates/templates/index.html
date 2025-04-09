@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | Web Name</title>
+    <script src="/static/vendor/tailwind.js"></script>
+    <script src="/static/vendor/sweetalert.js"></script>
+</head>
+<body>
+    <h1 class="text-green-500">Login</h1>
+    <form action="/auth/login" method="post" id="login-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+<script>
+    document.getElementById('login-form').addEventListener('submit', async function(event) {
+        event.preventDefault();  // Prevent default form submission
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        const res = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        
+        if (res.ok) {
+            const data = await res.json();
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            }
+        }
+        else {
+            const data = await res.json();
+            if (data.message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: data.message
+                });
+            }
+        }
+    });
+</script>
+</html>
