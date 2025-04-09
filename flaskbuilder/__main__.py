@@ -25,7 +25,7 @@ def main(project_name):
     click.echo('    python -m venv venv')
     click.echo('    source venv/bin/activate  (or venv\\Scripts\\activate on Windows)')
     click.echo('    pip install -r requirements.txt')
-    click.echo('    flask run')
+    click.echo('    python main.py')
 
 if __name__ == '__main__':
     main()
