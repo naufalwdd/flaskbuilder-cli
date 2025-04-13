@@ -1,12 +1,4 @@
-<!-- templates/index.html -->
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>User List</title>
-</head>
-<body>
-    <h1>Home</h1>
-    <button onclick="window.location.href='/auth/logout'">Logout</button>
-</body>
-</html>
+{% extends "components/base.html" %}
+{% block content %}
+<h2 class="text-lg font-bold">{{ context.page_title }}</h2>
+{% endblock %}

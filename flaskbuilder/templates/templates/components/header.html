@@ -1,0 +1,43 @@
+<div class="w-full h-[60px] bg-white flex items-center px-4 justify-end">
+    <div class="flex gap-x-2 items-center justify-between w-full">
+        <button class="me-0 md:me-5 invisible hover:cursor-pointer" id="btn_hamburger_2" onclick="toggleSidebar()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+        </button>
+        <div class="flex items-center">
+            <label class="font-[500] hidden md:block">{{ context.user_data.name }}</label>
+            <div class="relative ml-3" x-data="{ isOpen: false }">
+                <div>
+                    <button type="button"
+                        @click="isOpen = !isOpen"
+                        class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm hover:cursor-pointer"
+                        id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                        <span class="absolute -inset-1.5"></span>
+                        <span class="sr-only">Open user menu</span>
+                        <img class="size-10 rounded-full"
+                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt="">
+                    </button>
+                </div>
+                <div x-show="isOpen"
+                    x-transition:enter="transition ease-out duration-100 transform"
+                    x-transition:enter-start="opacity-0 scale-95"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75 transform"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-95"
+                    class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 focus:outline-hidden"
+                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                    <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1"
+                        id="user-menu-item-0">Your Profile</a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1"
+                        id="user-menu-item-1">Settings</a>
+                    <a href="/api/auth/logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1"
+                        id="user-menu-item-2">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

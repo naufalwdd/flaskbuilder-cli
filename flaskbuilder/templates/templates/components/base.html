@@ -1,16 +1,75 @@
 <!DOCTYPE html>
 <html>
 {% include 'components/head.html' %}
+
 <body>
     <title>
-        {{ context.page_title }} | Web Name
+        {{ context.page_title }} | Flaskest Admin
     </title>
     <div>
-    <div>
-    {% block content %}{% endblock %}
+        <div class="w-[100vw] h-[100vh] flex relative">
+            {% include 'components/sidebar.html' %}
+            <div class="h-full flex flex-col bg-gray-200 w-full md:w-[calc(100%_-_220px)]" id="content_el">
+                {% include 'components/header.html' %}
+                <div class="p-4 overflow-auto">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        
     </div>
 </body>
 <script>
-    
+    var sidebarOpen = true
+    var sidebarElement = document.getElementById('sidebar_el')
+    var contentElement = document.getElementById('content_el')
+    var innerHamburger = document.getElementById('btn_hamburger_2')
+
+    var screenWidth = window.innerWidth
+
+    console.log(screenWidth)
+    if (screenWidth < 768) {
+        sidebarOpen = false
+        sidebarElement.classList.add('hidden')
+    } else {
+        sidebarOpen = true
+        sidebarElement.classList.remove('hidden')
+    }
+
+    window.addEventListener('resize', function () {
+        screenWidth = window.innerWidth;
+        if (screenWidth < 768) {
+            sidebarOpen = false
+            HideSidebar()
+        } else {
+            sidebarOpen = true
+            ShowSidebar()
+        }
+    });
+
+    function toggleSidebar() {
+        sidebarOpen = !sidebarOpen
+        console.log(sidebarOpen)
+        if (sidebarOpen) {
+            ShowSidebar()
+        } else {
+            HideSidebar()
+        }
+    }
+
+    function ShowSidebar() {
+        sidebarElement.classList.remove('hidden')
+        sidebarElement.classList.add('md:flex')
+        contentElement.classList.add('md:w-[calc(100%_-_220px)]')
+        innerHamburger.classList.add('invisible')
+    }
+
+    function HideSidebar() {
+        sidebarElement.classList.add('hidden')
+        sidebarElement.classList.remove('md:flex')
+        contentElement.classList.remove('md:w-[calc(100%_-_220px)]')
+        innerHamburger.classList.remove('invisible')
+    }
 </script>
 </html>
