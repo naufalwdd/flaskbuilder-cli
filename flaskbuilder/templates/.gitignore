@@ -1,0 +1,12 @@
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Ignore virtual environment
+venv/
+
+# Ignore migrations
+*.db

@@ -9,7 +9,7 @@ auth_bp = Blueprint('auth', __name__)
 # Superuser hardcoded
 SUPERUSER = {
     "username": "admin",
-    "password": "superpassword123"
+    "password": "admin"
 }
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
