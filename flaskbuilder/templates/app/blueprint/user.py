@@ -1,10 +1,8 @@
-from flask import Blueprint, render_template, jsonify, request
-from app.models import User, Teacher, Student
+from flask import Blueprint, jsonify
+from app.models import User
 from utils.decorators import jwt_protected
-from werkzeug.security import generate_password_hash
-from config import db
 
-user_bp = Blueprint('user', __name__)
+user_bp = Blueprint('user_api', __name__)
 
 @user_bp.route('/list', methods=['GET'])
 @jwt_protected

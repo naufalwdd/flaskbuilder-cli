@@ -82,10 +82,15 @@
                     this.error = '';
                     try {
                         toggleSpinner(true);
+
+                        const params = new URLSearchParams(window.location.search);
+                        const paramValue = params.get('login');  // Replace 'paramName' with the actual parameter name
+
                         const res = await fetch('/api/auth/login', {
                             method: 'POST',
+                            credentials: 'include',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ username: this.username, password: this.password })
+                            body: JSON.stringify({ username: this.username, password: this.password, login_type: paramValue })
                         });
 
                         const result = await res.json();
@@ -96,7 +101,8 @@
                             return;
                         }
 
-                        window.location.href = '/home';
+                        if (paramValue) window.location.href = '/admin'
+                        else window.location.href = '/home';
                     } catch (err) {
                         toggleSpinner(false)
                         this.error = 'Terjadi kesalahan saat login.';

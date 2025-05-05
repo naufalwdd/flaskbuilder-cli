@@ -1,9 +1,8 @@
 from functools import wraps
-import traceback
 from flask import redirect, url_for, session, jsonify
 from flask_jwt_extended import verify_jwt_in_request
 
-def login_required(f):
+def protected(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'username' not in session:

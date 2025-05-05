@@ -1,5 +1,6 @@
 from config import db
 from datetime import datetime, date
+from flask_login import UserMixin
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -11,7 +12,7 @@ class Role(db.Model):
         return f"<Role {self.name}>"
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     username = db.Column(db.String(100), primary_key=True)
@@ -28,3 +29,6 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.username}>'
+    
+    def get_id(self):
+        return self.username
