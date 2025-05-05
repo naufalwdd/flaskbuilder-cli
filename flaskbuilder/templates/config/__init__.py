@@ -6,12 +6,25 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_babel import Babel
 from werkzeug.security import generate_password_hash
+import logging
 
 babel = Babel()
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
 jwt_blacklist = set()
+
+class FrontendRequestFilter(logging.Filter):
+    def filter(self, record):
+        # Only allow logs that are NOT for frontend/static files
+        msg = record.getMessage()
+        frontend_extensions = ['.js', '.css', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff', '.ttf', '.ico']
+        frontend_paths = ['/static/', '/admin/static/']
+
+        return not any(path in msg for path in frontend_paths) and not any(ext in msg for ext in frontend_extensions)
+
+log = logging.getLogger('werkzeug')
+log.addFilter(FrontendRequestFilter())
 
 def create_app():
     static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static'))
